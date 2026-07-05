@@ -1,17 +1,38 @@
 # Hope Seeker AI 🆘
 
-![Hope Seeker AI](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
-![Node.js](https://img.shields.io/badge/Node.js-22-green?style=for-the-badge&logo=nodedotjs)
-![Gemini AI](https://img.shields.io/badge/Gemini-2.0%20Flash-blue?style=for-the-badge&logo=google)
-![India](https://img.shields.io/badge/Built%20For-India%20🇮🇳-orange?style=for-the-badge)
+![Hope Seeker AI Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
+![Node.js Version](https://img.shields.io/badge/Node.js-22-green?style=for-the-badge&logo=nodedotjs)
+![Gemini AI Version](https://img.shields.io/badge/Gemini-2.0%20Flash-blue?style=for-the-badge&logo=google)
+![Built For India](https://img.shields.io/badge/Built%20For-India%20🇮🇳-orange?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 **Decentralized Disaster Relief Coordination Agent — Built for India**
 
-Hope Seeker AI is a full-stack emergency coordination web application that allows citizens in distress to broadcast their GPS location and a voice note with a single click. An AI agent (powered by Google Gemini) orchestrates the response by classifying the emergency, routing it to the correct Indian authority (NDRF/SDRF, 108 EMS, 101 Fire, 112 ERSS), and alerting nearby volunteers in **bilingual English + Hindi**.
+Hope Seeker AI is a mobile-responsive, high-contrast, accessible web application designed for rapid emergency response and community-driven disaster relief. In the event of a disaster (floods, waterlogging, earthquakes, infrastructure collapse), users can broadcast their GPS location and record an emergency voice note with a single click.
+
+An intelligent backend coordinator powered by **Google Gemini 2.0 Flash** transcribes and classifies the distress call, routes rescue coordinates to the nearest Indian emergency authority (NDRF/SDRF command, 108 Ambulance, 101 Fire Service, or 112 ERSS), generates bilingual alert templates, and alerts volunteer swimmers, boat owners, or medics within a 2 km radius.
 
 ---
 
-## 🏗️ Architecture
+## 📸 Project Demonstration Screenshots
+
+Here is a visual overview of the application interface, design system, and key workflows:
+
+### 1. Main Dashboard & Spatial Coordination Map
+*High-contrast glassmorphic design featuring Leaflet Dark Matter map tiles with active markers for emergency agencies, safe shelters, volunteers, and hazards.*
+![Dashboard and Map](images/demo.png)
+
+### 2. Live SOS Dispatch & AI First-Aid Routing Flow
+*Demonstrating an active distress signal analysis: transcribing natural language, classifying the hazard, matching responders, and providing immediate bilingual first-aid advice.*
+![SOS Dispatch Flow](images/sos_flow.png)
+
+### 3. Offline Connectivity Fallback & Check-in Tools
+*Ensuring resilience during cellular/data blackouts with dynamic SMS/WhatsApp fallback URL generation, family reassurance check-ins, and crowdsourced hazard reporting.*
+![Offline Connectivity Fallback](images/offline_mode.png)
+
+---
+
+## 🏗️ Architecture & Data Flow
 
 ```
 ┌────────────────────────────────────────────────────────────┐
@@ -34,90 +55,140 @@ Hope Seeker AI is a full-stack emergency coordination web application that allow
 └─────────────────────────────────────────────────────────────┘
 ```
 
+---
+
 ## ✨ Features
 
-| Feature | Description |
-|---|---|
-| 🆘 **One-Click SOS** | Records audio + GPS simultaneously |
-| 🤖 **AI Classification** | Gemini classifies: Medical, Search & Rescue, Hazard, Basic Needs |
-| 🗺️ **Live Leaflet Map** | Interactive dark map with emergency markers, volunteer paths, hazard icons |
-| 🏥 **Smart Routing** | Auto-dispatches to closest NDRF/108/101/112 responder |
-| 👥 **P2P Volunteer Broadcast** | Alerts volunteers within 2km radius |
-| 🇮🇳 **Bilingual Alerts** | English + Hindi broadcast templates |
-| ✅ **"I am Safe"** | Reassurance check-in with family broadcast |
-| ⚠️ **Hazard Reporting** | Crowdsource waterlogging, road blockages, live wires |
-| 🏫 **Shelter Directory** | NDRF Camps, Gurudwaras, Civil Defense Halls with resource tags |
-| 🩺 **AI First-Aid Advice** | Immediate bilingual first-aid guidance by emergency type |
-| 📵 **Offline Fallback** | Auto-generates SMS + WhatsApp emergency links when offline |
+- 🆘 **One-Click SOS Action**: Concurrently captures the browser's GPS coordinates and records up to a 30-second emergency audio note.
+- 🤖 **Gemini Multimodal AI**: Transcribes audio on-the-fly and runs intent analysis to categorize the emergency (Search & Rescue, Medical Aid, Hazard Report, or Basic Needs).
+- 🗺️ **Interactive Spatial Map**: Real-time Leaflet.js map visualization with customizable markers showing rescue teams, active incidents, hazards, and shelters.
+- 🏥 **Proximity-Based Routing**: Computes shortest-path coordinates (Haversine formula) to allocate the nearest active emergency service agency.
+- 👥 **Peer-to-Peer Volunteer Matching**: Automatically identifies and targets registered local volunteers (e.g., swimmers, boat owners, medical staff) within 2 km.
+- 🇮🇳 **Bilingual Alerts & First Aid**: Generates incident notifications and critical first-aid guidelines in both **English and Hindi** instantly.
+- ✅ **"I am Safe" Check-In**: A quick registration portal for citizens to mark their safety status and share their location with family members.
+- ⚠️ **Crowdsourced Hazard Mapping**: Allows citizens to pin community hazards (e.g., waterlogging, live wires, structural damage, road blockages) directly onto the map.
+- 🏫 **Safe Shelters Directory**: Integrates a list of community shelters (e.g., Gurudwaras, NDRF camps) displaying available food, medical kits, and blankets.
+- 📵 **Offline Resilience**: Detects connection loss or lets users toggle simulation mode to quickly broadcast coordinates via auto-filled SMS/WhatsApp deep links.
 
 ---
 
-## 🚀 Quick Start
+## 🛠️ Technology Stack
+
+* **Frontend**: Vanilla HTML5, CSS3 (Modern Glassmorphic Dark Design System, custom CSS variables, responsive grid), Leaflet.js mapping, Web Geolocation API, Web MediaRecorder API, Web Speech API (transcription).
+* **Backend**: Node.js, Express framework, Multer middleware (handling audio file uploads).
+* **AI Orchestrator**: Google Gen AI SDK (`@google/genai` v2.10.0) calling `gemini-2.0-flash`.
+* **Tests**: Custom local API health test suite (`test-api.js`) verifying mock payloads and dispatch engine mechanics.
+
+---
+
+## 📂 Project Directory Structure
+
+```
+hope-seeker-ai/
+├── public/                 # Frontend Static Assets
+│   ├── index.html          # SPA HTML Document
+│   ├── style.css           # Premium Responsive CSS Design
+│   └── app.js              # Leaflet Map, Speech, & API Logic
+├── uploads/                # Temporary Audio Uploads Storage
+├── images/                 # App Screenshot Assets for Documentation
+│   ├── demo.png
+│   ├── sos_flow.png
+│   └── offline_mode.png
+├── .env.example            # Environment Config Template
+├── .gitignore              # Git Exclude Lists
+├── CONTRIBUTING.md         # Open-Source Contribution Guide
+├── CODE_OF_CONDUCT.md      # Community Code of Conduct
+├── LICENSE                 # MIT License details
+├── SECURITY.md             # Security Reporting policy
+├── package.json            # Node Manifest & Dependencies
+├── server.js               # Express Orchestration Engine
+└── test-api.js             # Local API & Gemini Routing Tests
+```
+
+---
+
+## 🚀 Quick Start & Installation
 
 ### Prerequisites
-- Node.js v18+
+* [Node.js](https://nodejs.org/) v18.0.0 or higher installed.
 
-### Setup
-
+### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/hope-seeker-ai.git
+git clone https://github.com/ujjwalraj-cds/hope-seeker-ai.git
 cd hope-seeker-ai
+```
+
+### 2. Install Dependencies
+```bash
 npm install
 ```
 
-### Configure (Optional — for Gemini AI)
-
+### 3. Configure the Environment
+Copy the configuration template:
 ```bash
 cp .env.example .env
-# Add your GEMINI_API_KEY in .env
 ```
+Open the `.env` file and insert your Gemini API Key:
+```env
+PORT=3000
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+> **Note**: If `GEMINI_API_KEY` is omitted, the application will transparently fall back to an in-built heuristic NLP classifier, ensuring full operational capability without internet or API dependencies.
 
-> Without an API key, the app runs in **Local Simulation Mode** using keyword-based NLP heuristics.
-
-### Run
-
+### 4. Run the Server
 ```bash
 node server.js
 ```
-
-Open **http://localhost:3000**
+The server will boot up:
+```
+Hope Seeker AI server running at http://localhost:3000
+```
+Open your browser and navigate to **[http://localhost:3000](http://localhost:3000)**.
 
 ---
 
-## 🧪 API Endpoints
+## 🧪 Local Testing & Verification
 
-| Method | Endpoint | Description |
+You can verify the backend API endpoints and Gemini routing engine locally by running the test suite:
+```bash
+node test-api.js
+```
+This tests:
+1. Retrieval of available simulated volunteers, hazards, shelters, and emergency numbers.
+2. Form-data submission simulating a Search and Rescue distress call.
+3. Validation of emergency category classification, priority assignment, local distance calculations, volunteer alerts, and English/Hindi alert outputs.
+
+---
+
+## 🇮🇳 India Emergency Helpline Mappings
+
+In actual crisis scenarios, coordinates are routed based on proximity to these central response hubs:
+
+| Authority Agency | Contact Number | Primary Rescue Focus |
 |---|---|---|
-| `POST` | `/api/emergency` | Main SOS handler — classify, route, broadcast |
-| `GET` | `/api/volunteers` | List all registered volunteers |
-| `POST` | `/api/volunteers` | Register a new volunteer |
-| `GET` | `/api/shelters` | List all safe shelters |
-| `GET` | `/api/hazards` | List all reported hazards |
-| `POST` | `/api/hazards` | Report a new hazard |
-| `POST` | `/api/check-in` | Register "I am Safe" check-in |
-| `GET` | `/api/authorities` | List emergency authority agencies |
-| `POST` | `/api/reset` | Reset simulation database to defaults |
+| **NDRF Rescue Command** | `011-23438017` | Major flood search, boat evacuations, urban rescue |
+| **Unified Dispatch (ERSS)** | `112` | General police, emergency coordinator response |
+| **Ambulance Service (EMS)** | `108` | Medical trauma, medical transports, emergency aid |
+| **Fire Service Dispatch** | `101` | Structural collapse, electrical fires, industrial rescue |
+| **Red Cross Coordination** | `011-23354402` | Relief supply lines, basic needs distribution |
 
 ---
 
-## 🇮🇳 India-Specific Emergency Numbers
+## 🤝 Community & Contribution
 
-| Service | Number |
-|---|---|
-| Unified Emergency (ERSS) | **112** |
-| Ambulance | **108 / 102** |
-| Fire | **101** |
-| Police | **100** |
-| NDRF Helpline | **011-23438017** |
+We welcome contributions to help improve Hope Seeker AI!
+* Review our [Contributing Guidelines](CONTRIBUTING.md) to get started.
+* Adhere to our community standards outlined in the [Code of Conduct](CODE_OF_CONDUCT.md).
+* Report security vulnerabilities responsibly as described in [SECURITY.md](SECURITY.md).
 
 ---
 
 ## ⚠️ Disclaimer
 
-> Hope Seeker AI is an **AI-powered coordination prototype**. In life-threatening emergencies, always dial official emergency services (**112**) first.
+> **Hope Seeker AI is an AI-powered coordination prototype.** In life-threatening emergencies, always dial official emergency services (**112**) first.
 
 ---
 
 ## 📄 License
 
-MIT License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
