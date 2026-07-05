@@ -1,10 +1,38 @@
 # Hope Seeker AI 🆘
 
+![Hope Seeker AI](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
+![Node.js](https://img.shields.io/badge/Node.js-22-green?style=for-the-badge&logo=nodedotjs)
+![Gemini AI](https://img.shields.io/badge/Gemini-2.0%20Flash-blue?style=for-the-badge&logo=google)
+![India](https://img.shields.io/badge/Built%20For-India%20🇮🇳-orange?style=for-the-badge)
+
 **Decentralized Disaster Relief Coordination Agent — Built for India**
 
 Hope Seeker AI is a full-stack emergency coordination web application that allows citizens in distress to broadcast their GPS location and a voice note with a single click. An AI agent (powered by Google Gemini) orchestrates the response by classifying the emergency, routing it to the correct Indian authority (NDRF/SDRF, 108 EMS, 101 Fire, 112 ERSS), and alerting nearby volunteers in **bilingual English + Hindi**.
 
 ---
+
+## 🏗️ Architecture
+
+```
+┌────────────────────────────────────────────────────────────┐
+│                    Web Browser (Client)                    │
+│  ┌─────────────┐  ┌──────────────┐  ┌───────────────────┐ │
+│  │  SOS Button │  │ Leaflet Map  │  │ MediaRecorder API │ │
+│  │ + Check-in  │  │ (Dark Matter)│  │ + SpeechRecognition│ │
+│  └──────┬──────┘  └──────────────┘  └─────────┬─────────┘ │
+└─────────┼──────────────────────────────────────┼───────────┘
+          │ POST /api/emergency                   │ Audio Blob
+          ▼                                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   Express Server (Node.js)                  │
+│  ┌──────────────┐  ┌─────────────────┐  ┌───────────────┐  │
+│  │ Gemini 2.0   │  │ Haversine Dist. │  │ In-Memory DB  │  │
+│  │ Flash (AI)   │  │ Smart Routing   │  │ Volunteers    │  │
+│  │ - Transcribe │  │ NDRF/108/101/112│  │ Shelters      │  │
+│  │ - Classify   │  │ Bilingual Alert │  │ Hazards       │  │
+│  └──────────────┘  └─────────────────┘  └───────────────┘  │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ## ✨ Features
 
