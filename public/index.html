@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hope Seeker AI - Decentralized Disaster Relief Coord</title>
+  
+  <!-- Leaflet Map CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+        crossorigin="" />
+        
+  <!-- Google Font & Custom Styles -->
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- Top Emergency Disclaimer Banner -->
+  <div class="disclaimer-banner" id="disclaimerBanner">
+    <span>⚠️ <strong>OFFICIAL EMERGENCY DISCLAIMER:</strong> Hope Seeker AI is an AI coordination prototype. In life-threatening emergencies, always dial <strong>112</strong> (Unified ERSS) or <strong>108 / 102</strong> (Ambulance) & <strong>101</strong> (Fire) first in India.</span>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-icon">H</div>
+      <div class="logo-text">
+        <h1>Hope Seeker AI</h1>
+        <span>Decentralized Relief Agent (India)</span>
+      </div>
+    </div>
+    
+    <div class="system-status">
+      <div class="status-dot"></div>
+      <span id="networkStatus">Network: ONLINE</span>
+    </div>
+  </header>
+
+  <!-- Main Responsive Layout -->
+  <main>
+    <!-- Left Column: Input and Control Centers -->
+    <div class="left-column">
+      
+      <!-- Primary SOS trigger -->
+      <section class="glass-card text-center" style="display: flex; flex-direction: column; align-items: center;">
+        <h2 class="card-title" style="width: 100%;">Emergency SOS Console</h2>
+        <div class="sos-container">
+          <button class="sos-button" id="sosBtn">
+            <span style="font-size: 2rem;">🆘</span>
+            <span>SOS</span>
+            <span style="font-size: 0.75rem; font-weight: 500; opacity: 0.8;" id="sosBtnLabel">TAP TO RECORD</span>
+          </button>
+          
+          <p class="sos-hint" id="sosHint">
+            Tapping captures your GPS location and records up to 30 seconds of audio describing your distress.
+          </p>
+
+          <!-- Waveform Recording Visualizer -->
+          <div class="visualizer-container" id="visualizer">
+            <svg class="waveform-svg" viewBox="0 0 100 20" preserveAspectRatio="none">
+              <rect class="waveform-bar" x="2" y="2" width="4" height="16" rx="2" style="animation-delay: 0.1s;"></rect>
+              <rect class="waveform-bar" x="10" y="2" width="4" height="16" rx="2" style="animation-delay: 0.3s;"></rect>
+              <rect class="waveform-bar" x="18" y="2" width="4" height="16" rx="2" style="animation-delay: 0.2s;"></rect>
+              <rect class="waveform-bar" x="26" y="2" width="4" height="16" rx="2" style="animation-delay: 0.5s;"></rect>
+              <rect class="waveform-bar" x="34" y="2" width="4" height="16" rx="2" style="animation-delay: 0.4s;"></rect>
+              <rect class="waveform-bar" x="42" y="2" width="4" height="16" rx="2" style="animation-delay: 0.6s;"></rect>
+              <rect class="waveform-bar" x="50" y="2" width="4" height="16" rx="2" style="animation-delay: 0.3s;"></rect>
+              <rect class="waveform-bar" x="58" y="2" width="4" height="16" rx="2" style="animation-delay: 0.1s;"></rect>
+              <rect class="waveform-bar" x="66" y="2" width="4" height="16" rx="2" style="animation-delay: 0.7s;"></rect>
+              <rect class="waveform-bar" x="74" y="2" width="4" height="16" rx="2" style="animation-delay: 0.4s;"></rect>
+              <rect class="waveform-bar" x="82" y="2" width="4" height="16" rx="2" style="animation-delay: 0.2s;"></rect>
+              <rect class="waveform-bar" x="90" y="2" width="4" height="16" rx="2" style="animation-delay: 0.5s;"></rect>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- Processing Console Logs -->
+      <section class="glass-card console-card">
+        <h2 class="card-title console-title">Orchestrator Logs</h2>
+        <div class="console-body" id="consoleLogs">
+          <div class="console-line">
+            <span class="console-time">[16:04:24]</span>
+            <span>SYSTEM: Initialized coordinates to Central Secretariate, Delhi.</span>
+          </div>
+          <div class="console-line">
+            <span class="console-time">[16:04:24]</span>
+            <span class="console-success">SYSTEM: Offline Simulation database loaded (5 volunteers, 3 shelters).</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Offline Fallback drawer -->
+      <section class="glass-card offline-card">
+        <div class="toggle-switch">
+          <div>
+            <h3 style="font-size: 0.95rem; font-weight: 700;">Simulate Low Connectivity</h3>
+            <p style="font-size: 0.7rem; color: var(--text-secondary);">Force SMS / WhatsApp Fallback links</p>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="offlineToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+        
+        <div class="fallback-box" id="fallbackBox">
+          <p>⚠️ Data connectivity lost! Tap below to send emergency coordinates and distress notes via standard SMS or WhatsApp:</p>
+          <div class="fallback-buttons">
+            <a href="#" class="fallback-link link-sms" id="smsLink" target="_blank">💬 Send SMS SOS</a>
+            <a href="#" class="fallback-link link-whatsapp" id="whatsappLink" target="_blank">🟢 WhatsApp SOS</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- "I am Safe" Reassurance Check-in -->
+      <section class="glass-card">
+        <h2 class="card-title">Check-in "I am Safe"</h2>
+        <div class="tabs-container">
+          <button class="tab-btn active" id="tabCheckIn">Reassurance Check-in</button>
+          <button class="tab-btn" id="tabRegisterVol">Register Volunteer</button>
+        </div>
+        
+        <!-- Tab 1: Check-in form -->
+        <div id="checkInFormPanel">
+          <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            Quick reassurance broadcast for family and community dashboards.
+          </p>
+          <form id="checkInForm">
+            <div class="form-group">
+              <label for="checkInName">Name (नाम)</label>
+              <input type="text" id="checkInName" class="form-control" placeholder="E.g. Amit Kumar" required>
+            </div>
+            <div class="form-group">
+              <label for="checkInPhone">Phone Number (फोन नंबर)</label>
+              <input type="text" id="checkInPhone" class="form-control" placeholder="E.g. +91 99887 76655">
+            </div>
+            <div class="form-group">
+              <label for="checkInNote">Short message (संदेश)</label>
+              <input type="text" id="checkInNote" class="form-control" placeholder="E.g. I am safe at the metro station shelter">
+            </div>
+            <button type="submit" class="btn btn-green">Broadcast "I am Safe"</button>
+          </form>
+        </div>
+
+        <!-- Tab 2: Volunteer Registration Form -->
+        <div id="volunteerFormPanel" style="display: none;">
+          <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            Add a mock volunteer at your current coordinates to test spatial broadcasts.
+          </p>
+          <form id="volRegisterForm">
+            <div class="form-group">
+              <label for="volName">Name</label>
+              <input type="text" id="volName" class="form-control" placeholder="E.g. Suresh Kumar" required>
+            </div>
+            <div class="form-group">
+              <label for="volSkills">Skills (Select multiple)</label>
+              <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" name="skills" value="First Aid/Medical"> Medical Aid</label>
+                <label class="checkbox-item"><input type="checkbox" name="skills" value="Swimmer/Boat Owner"> Swimmer/Boat</label>
+                <label class="checkbox-item"><input type="checkbox" name="skills" value="General Aid (Food/Shelter)"> Food/Shelter</label>
+                <label class="checkbox-item"><input type="checkbox" name="skills" value="Blood Donor"> Blood Donor</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="volBlood">Blood Group</label>
+              <select id="volBlood">
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-blue">Register Simulated Volunteer</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Simulation Controller -->
+      <section class="glass-card">
+        <h2 class="card-title">Developer Simulation Hub</h2>
+        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Report custom local hazards on the map, or reset the coordinate database.
+        </p>
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+          <button class="btn btn-secondary" id="btnReportHazard">Report Hazard at Current Coordinates</button>
+          <button class="btn btn-danger" id="btnResetDB">Reset Simulation Database</button>
+        </div>
+      </section>
+    </div>
+
+    <!-- Right Column: Interactive Map & Results -->
+    <div class="right-column">
+      
+      <!-- Interactive Disaster Leaflet Map -->
+      <section class="glass-card map-card">
+        <div class="card-title" style="padding: 0.5rem 1rem 0 1rem; border: none; margin-bottom: 0.5rem;">
+          <h2 style="font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+            🗺️ Live Disaster Response Map
+          </h2>
+          <span style="font-size: 0.7rem; color: var(--accent-orange); font-weight: bold; background: rgba(249,115,22,0.1); padding: 0.15rem 0.5rem; border-radius: 0.25rem;">
+            Tap map to move user location
+          </span>
+        </div>
+        <div id="map"></div>
+      </section>
+
+      <!-- Split details: Incident Console & Community stats -->
+      <div class="dispatch-details">
+        
+        <!-- AI Incident routing console -->
+        <section class="glass-card" style="display: flex; flex-direction: column;">
+          <h2 class="card-title">🚨 Active Distress Routing Analysis</h2>
+          <div id="activeIncidentPanel" style="flex-grow: 1;">
+            <p style="font-size: 0.8rem; color: var(--text-secondary); text-align: center; padding: 2rem 0;">
+              No active distress request. Trigger an SOS or click the map to simulate emergency responses.
+            </p>
+          </div>
+        </section>
+        
+        <!-- Live Volunteer details and shelters -->
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+          
+          <!-- Nearby Volunteers Board -->
+          <section class="glass-card">
+            <h2 class="card-title" style="margin-bottom: 0.5rem;">
+              👥 Nearby Volunteers (<span id="volunteerCount">0</span>)
+            </h2>
+            <div class="volunteers-list" id="volunteersList">
+              <!-- Rendered via JS -->
+            </div>
+          </section>
+
+          <!-- Safe Shelters Directory -->
+          <section class="glass-card">
+            <h2 class="card-title" style="margin-bottom: 0.5rem;">
+              🏫 Safe Shelters & Amenities
+            </h2>
+            <div class="volunteers-list" id="sheltersList">
+              <!-- Rendered via JS -->
+            </div>
+          </section>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Leaflet Map JS script -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+          crossorigin=""></script>
+          
+  <!-- Core Logic script -->
+  <script src="/app.js"></script>
+</body>
+</html>
