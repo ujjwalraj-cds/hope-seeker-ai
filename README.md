@@ -2,14 +2,11 @@
 
 > **AI-powered disaster relief coordination platform designed to help people report emergencies, understand incidents, and connect with nearby responders faster.**
 
-
-\
-
 **Hope Seeker AI** is a disaster-response prototype built around a simple idea:
 
 > **When someone needs help during a disaster, reporting the problem should be as fast and simple as possible.**
 
-The platform combines **AI-assisted incident understanding, geolocation, proximity-based responder matching, emergency guidance, and disaster mapping** into a single web application.
+The platform combines **AI-assisted incident understanding, geolocation, proximity-based responder matching, emergency guidance, disaster mapping, and connectivity fallback mechanisms** into a single web application.
 
 🚧 **Project Status:** Functional MVP / actively under development.
 
@@ -19,45 +16,61 @@ The platform combines **AI-assisted incident understanding, geolocation, proximi
 
 ### Try the deployed application
 
-**[Launch Hope Seeker AI →](https://hope-seeker-ai.onrender.com)**
+**👉 [Launch Hope Seeker AI](https://hope-seeker-ai.onrender.com)**
 
-The deployed version demonstrates the complete emergency-reporting workflow using the project's current prototype data and services.
+The project is currently deployed and available as a working web application.
 
-> **Note:** This is a prototype and is **not connected to official emergency dispatch infrastructure**. Responder, shelter, and emergency-service data used by the application may be simulated/local data.
-
----
-
-## 🎥 Demo
-
-*Add a short screen recording or GIF of the application here.*
-
-Recommended demo flow:
-
-```text
-Emergency Dashboard
-        ↓
-Create SOS / Emergency Report
-        ↓
-Capture Location
-        ↓
-Voice / Text Description
-        ↓
-AI Incident Classification
-        ↓
-Priority & Incident Type
-        ↓
-Nearby Responder Matching
-        ↓
-Emergency Guidance
-        ↓
-Incident Resolution
-```
+> **Important:** Hope Seeker AI is currently a prototype and is **not connected to official emergency dispatch infrastructure**. Responder, shelter, and emergency-service information used by the prototype may be simulated or locally defined.
 
 ---
 
-## 🎯 The Problem
+# 📸 Project Demonstration
 
-During disasters such as floods, earthquakes, fires, or other emergencies, people can struggle to communicate:
+A visual overview of the current application and its major workflows.
+
+## 🖥️ Main Dashboard
+
+The main dashboard provides access to emergency reporting, location services, disaster mapping, check-ins, volunteer registration, and hazard reporting.
+
+<p align="center">
+  <img src="images/demo.png" alt="Hope Seeker AI Main Dashboard" width="900">
+</p>
+
+---
+
+## 🆘 SOS & AI Response Flow
+
+The SOS workflow captures the user's location and emergency information, processes the incident, classifies the situation, and determines an appropriate response path.
+
+<p align="center">
+  <img src="images/sos_flow.png" alt="Hope Seeker AI SOS and AI Response Flow" width="900">
+</p>
+
+---
+
+## 📵 Connectivity Fallback
+
+The application includes a simulated low-connectivity mode that demonstrates fallback communication through standard SMS and WhatsApp links when normal data connectivity is unavailable.
+
+<p align="center">
+  <img src="images/offline_mode.png" alt="Hope Seeker AI Connectivity Fallback" width="900">
+</p>
+
+---
+
+# 🎯 The Problem
+
+During disasters such as:
+
+* Floods
+* Waterlogging
+* Fires
+* Earthquakes
+* Structural failures
+* Medical emergencies
+* Infrastructure damage
+
+people can struggle to communicate:
 
 * **What happened**
 * **Where they are**
@@ -65,68 +78,81 @@ During disasters such as floods, earthquakes, fires, or other emergencies, peopl
 * **How urgent the situation is**
 * **Who nearby can help**
 
-Traditional emergency communication can also become difficult when information is incomplete, unstructured, or provided under stress.
+Emergency information is also frequently **unstructured**. A person may simply describe what they see or hear rather than selecting from predefined categories.
 
-Hope Seeker AI explores whether an AI-assisted system can simplify the first stage of emergency coordination.
+Hope Seeker AI explores how AI and location-aware software can simplify the initial stage of disaster-response coordination.
 
 ---
 
-## 💡 The Solution
+# 💡 The Solution
 
-Hope Seeker AI provides a unified interface where a user can submit an emergency report and provide information such as:
+Hope Seeker AI provides a unified interface where a user can submit an emergency report using information such as:
 
 * Current location
 * Voice or text description
 * Emergency category
-* Optional additional information
+* Additional incident information
 
-The backend processes the report and combines AI-assisted understanding with geographic information to determine an appropriate response path.
+The backend then combines:
 
-### High-level flow
+**AI analysis + geographic information + responder data + application logic**
+
+to produce a structured response.
+
+### High-Level Flow
 
 ```text
-User
- │
- ├── Location
- ├── Voice / Text
- └── Emergency Details
-          │
-          ▼
-     Express API
-          │
-          ├──────────────► AI Classification
-          │
-          ├──────────────► Geographic Analysis
-          │
-          └──────────────► Responder Data
-                            │
-                            ▼
-                  Response Coordination
-                            │
-              ┌─────────────┼─────────────┐
-              ▼             ▼             ▼
-         Incident       Responder      Emergency
-         Category        Matching        Guidance
+                    USER
+                     │
+          ┌──────────┼──────────┐
+          │          │          │
+       Location    Voice       Text
+          │          │          │
+          └──────────┼──────────┘
+                     ▼
+              Express Backend
+                     │
+        ┌────────────┼────────────┐
+        ▼            ▼            ▼
+   AI Analysis   Geospatial    Responder
+                 Processing       Data
+        │            │            │
+        └────────────┼────────────┘
+                     ▼
+            Response Coordination
+                     │
+          ┌──────────┼──────────┐
+          ▼          ▼          ▼
+      Incident   Responder   Emergency
+     Classification Matching   Guidance
 ```
 
 ---
 
 # ✨ Key Features
 
-## 🆘 Emergency Reporting
+## 🆘 One-Click Emergency Reporting
 
-Users can quickly submit an emergency incident along with relevant information and their current location.
+The SOS interface is designed to minimize the number of steps required to report an emergency.
+
+The application can capture:
+
+* GPS coordinates
+* Emergency audio
+* Incident information
+
+The current implementation supports audio recording of up to approximately 30 seconds through the browser.
 
 ---
 
 ## 📍 GPS-Based Location
 
-The application can use the browser's geolocation capabilities to obtain the user's current coordinates.
+The browser's Geolocation API is used to obtain the user's current coordinates.
 
-Location information can then be used for:
+Location information can be used for:
 
 * Incident mapping
-* Proximity calculations
+* Geographic proximity calculations
 * Responder matching
 * Emergency context
 
@@ -134,164 +160,253 @@ Location information can then be used for:
 
 ## 🤖 AI-Assisted Incident Classification
 
-The application uses **Google Gemini** to process natural-language emergency descriptions.
+The application uses **Google Gemini** to process natural-language emergency information.
 
-The AI layer can help identify the nature of an incident and convert an unstructured report into structured information that the backend can work with.
+The AI layer helps transform an unstructured emergency description into structured information that the application can use.
 
-Example:
+For example:
 
 ```text
-User report:
+User Report:
 
 "There is a person trapped on the second floor.
 The water is rising very quickly."
 
-             ↓
+                    ↓
 
-AI Classification
+AI Analysis
 
 Incident Type: Search & Rescue
 Priority: High
 Situation: Flooding
-Required Response: Rescue assistance
+Required Response: Rescue Assistance
 ```
 
-The AI output is then combined with application logic rather than being treated as the sole source of truth.
+The AI layer is used as an **assistive component** and is combined with application-level logic.
 
 ---
 
 ## 🧠 Fallback Classification
 
-The system includes a lightweight heuristic fallback mechanism for situations where the AI service is unavailable or cannot be used.
+The application includes a lightweight heuristic fallback mechanism.
 
-This allows the application to degrade gracefully instead of completely depending on an external AI service.
+If the external AI service is unavailable, the application can fall back to basic rule-based classification.
 
 ```text
-Gemini Available?
-      │
- ┌────┴────┐
- YES        NO
- │           │
- ▼           ▼
-AI       Heuristic
-Analysis  Fallback
- │           │
- └─────┬─────┘
-       ▼
-Incident Classification
+             Emergency Report
+                    │
+                    ▼
+             Gemini Available?
+                /       \
+              YES        NO
+               │          │
+               ▼          ▼
+          Gemini AI    Heuristic
+           Analysis    Classifier
+               │          │
+               └────┬─────┘
+                    ▼
+          Incident Classification
 ```
 
+This reduces dependence on a single external AI service.
+
 ---
 
-## 🗺️ Disaster & Hazard Mapping
+# 🗺️ Interactive Disaster Response Map
 
-The application provides map-based visualization for relevant disaster information.
+The application provides an interactive map for visualizing disaster-response information.
 
-The mapping interface can be used to understand:
+The current interface can display information such as:
 
-* Incident locations
-* Hazard areas
+* Emergency incidents
+* Hazards
+* Volunteers
 * Shelters
-* Relevant response locations
+* Emergency-service locations
 
-The project uses **Leaflet** for interactive maps.
+The map is implemented using **Leaflet.js**.
 
 ---
 
-## 🚑 Proximity-Based Responder Matching
+# 🚑 Proximity-Based Responder Matching
 
-After an incident is classified, the system can identify nearby responders based on geographic distance.
-
-The prototype uses geographic coordinates and distance calculations to determine which available responder is closest to an incident.
+The prototype uses geographic distance calculations to identify responders or response locations near an incident.
 
 Conceptually:
 
 ```text
-Incident
-   │
-   ├── Responder A → 8.4 km
-   ├── Responder B → 2.1 km
-   ├── Responder C → 5.7 km
-   │
-   ▼
-Nearest suitable responder
+                    INCIDENT
+                       │
+        ┌──────────────┼──────────────┐
+        ▼              ▼              ▼
+   Responder A     Responder B     Responder C
+     8.4 km          2.1 km          5.7 km
+                       │
+                       ▼
+              Nearest Candidate
 ```
 
-> The current implementation uses application-level/local responder data. It does not directly dispatch official emergency personnel.
+The prototype uses the **Haversine distance calculation** for geographic proximity.
+
+> This is a proximity-based prototype and does not represent actual road travel time or official dispatch routing.
 
 ---
 
-## 🌐 Bilingual Emergency Guidance
+# 👥 Volunteer Coordination
 
-The application is designed with accessibility in mind and provides emergency guidance suitable for users who may prefer English or Hindi.
+The application includes a simulated community-volunteer system.
 
-The goal is to reduce the amount of technical knowledge required from someone who is already dealing with an emergency.
+Volunteers can be registered with skills such as:
 
----
+* Medical Aid
+* Swimmer / Boat
+* Food / Shelter
+* Blood Donor
 
-## 🎙️ Voice-Based Reporting
+The system can then use location and volunteer information when determining potential nearby assistance.
 
-The browser's media capabilities can be used to capture emergency audio, allowing users to communicate without relying entirely on typing.
-
-This is particularly useful when:
-
-* The user is under stress
-* Typing is inconvenient
-* The situation requires quick reporting
+The deployed application currently provides a simulated volunteer registration workflow.
 
 ---
 
-## 🛟 Safety & First-Aid Guidance
+# 🏫 Shelter & Resource Information
 
-The system can provide contextual emergency guidance based on the reported situation.
+The application includes a shelter/resource directory designed to provide information about available safe locations and amenities.
 
-Examples include guidance related to:
+The current prototype includes locally defined/simulated shelter information.
+
+---
+
+# ⚠️ Crowdsourced Hazard Reporting
+
+Users can report hazards at their current coordinates.
+
+Examples include:
+
+* Waterlogging
+* Live wires
+* Structural damage
+* Road blockages
+* Other local hazards
+
+These reports can then be represented on the disaster-response map.
+
+---
+
+# ✅ "I Am Safe" Check-In
+
+The platform includes a safety check-in mechanism that allows users to communicate that they are safe.
+
+The current prototype supports:
+
+* Name
+* Phone number
+* Short safety message
+* Location context
+
+This is intended as a community reassurance mechanism rather than an official emergency-status system.
+
+---
+
+# 📵 Connectivity Fallback
+
+Disasters can cause network congestion or connectivity loss.
+
+Hope Seeker AI includes a **connectivity fallback simulation** that can generate emergency SMS/WhatsApp actions containing relevant emergency information.
+
+```text
+Normal Connectivity
+       │
+       ▼
+   Web Application
+       │
+       │
+       ▼
+Connection Lost
+       │
+       ▼
+SMS / WhatsApp Fallback
+```
+
+The deployed application currently includes a low-connectivity simulation and fallback links.
+
+> **Note:** This should not be confused with a fully offline AI system. Full offline-first operation and local AI inference are planned areas of future development.
+
+---
+
+# 🌐 Bilingual Emergency Guidance
+
+The system is designed to support emergency communication in:
+
+* 🇬🇧 English
+* 🇮🇳 Hindi
+
+The goal is to make emergency information more accessible to users who may prefer different languages.
+
+---
+
+# 🛟 Emergency & First-Aid Guidance
+
+The system can generate contextual emergency guidance based on the reported situation.
+
+Potential scenarios include:
 
 * Flooding
 * Fire
 * Medical emergencies
-* Immediate personal safety
 * Evacuation
+* Immediate personal safety
 
-The guidance is intended as **general emergency assistance**, not as a replacement for professional emergency services.
+> This information is intended as general guidance and **does not replace professional medical or emergency services**.
 
 ---
 
 # 🏗️ System Architecture
 
 ```text
-                         ┌─────────────────────┐
-                         │      Web Client     │
-                         │                     │
-                         │ SOS • GPS • Voice   │
-                         │ Maps • Check-ins    │
-                         └──────────┬──────────┘
-                                    │
-                                    ▼
-                         ┌─────────────────────┐
-                         │    Express Server   │
-                         │                     │
-                         │ API • Validation    │
-                         │ Routing • Logic     │
-                         └──────────┬──────────┘
-                                    │
-                  ┌─────────────────┼─────────────────┐
-                  │                 │                 │
-                  ▼                 ▼                 ▼
-          ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-          │ Google Gemini│  │ Geospatial   │  │ Local Data   │
-          │      AI      │  │ Processing   │  │ Responders   │
-          └──────────────┘  └──────────────┘  └──────────────┘
-                  │                 │                 │
-                  └─────────────────┼─────────────────┘
-                                    ▼
-                         ┌─────────────────────┐
-                         │ Response Coordination│
-                         │                     │
-                         │ Classification     │
-                         │ Matching           │
-                         │ Guidance           │
-                         └─────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│                     WEB CLIENT                           │
+│                                                          │
+│   SOS     GPS     Voice     Maps     Check-in     UI     │
+└────────────────────────┬─────────────────────────────────┘
+                         │
+                         │ HTTP / API
+                         ▼
+┌──────────────────────────────────────────────────────────┐
+│                   NODE.JS + EXPRESS                      │
+│                                                          │
+│  API Routes • Validation • Routing • Response Logic      │
+└───────────────┬──────────────────┬───────────────────────┘
+                │                  │
+                ▼                  ▼
+       ┌────────────────┐   ┌─────────────────┐
+       │  Google Gemini │   │ Geospatial      │
+       │      AI        │   │ Processing      │
+       │                │   │                 │
+       │ Classification │   │ Haversine       │
+       │ Analysis       │   │ Distance        │
+       └───────┬────────┘   └────────┬────────┘
+               │                     │
+               └──────────┬──────────┘
+                          ▼
+                ┌─────────────────────┐
+                │ Application Data    │
+                │                     │
+                │ Volunteers          │
+                │ Shelters            │
+                │ Hazards             │
+                │ Incidents           │
+                └──────────┬──────────┘
+                           ▼
+                ┌─────────────────────┐
+                │ Response Engine     │
+                │                     │
+                │ Classification      │
+                │ Matching            │
+                │ Alerts              │
+                │ Guidance            │
+                └─────────────────────┘
 ```
 
 ---
@@ -302,11 +417,7 @@ The guidance is intended as **general emergency assistance**, not as a replaceme
 
 Emergency reports are often unstructured.
 
-A user might say:
-
-> "Water has entered my house and my grandmother can't get downstairs."
-
-Instead of forcing the user to fill out multiple forms, the AI layer can extract useful information from natural language.
+Instead of requiring users to complete multiple forms, natural-language processing can help extract useful information from descriptions.
 
 ---
 
@@ -314,63 +425,85 @@ Instead of forcing the user to fill out multiple forms, the AI layer can extract
 
 Emergency response is inherently location-dependent.
 
-The prototype therefore combines incident classification with geographic proximity instead of relying solely on the incident category.
+A nearby suitable responder can potentially be more useful than a distant responder with the same general capability.
+
+The prototype therefore combines incident information with geographic proximity.
+
+---
+
+## Why Haversine Distance?
+
+The Haversine formula provides a lightweight method for calculating approximate great-circle distance between two geographic coordinates.
+
+It is suitable for the current prototype because it requires no external routing service.
+
+For a production implementation, actual road-network routing and travel-time estimation would be more appropriate.
 
 ---
 
 ## Why a Fallback Classifier?
 
-An emergency-response system should avoid having a single external dependency become a complete point of failure.
+External AI services can fail because of:
 
-The heuristic fallback provides basic classification capabilities when the AI service cannot be used.
+* Network problems
+* API failures
+* Rate limits
+* Configuration issues
+* Service availability
+
+A fallback classifier allows the core prototype workflow to continue functioning.
 
 ---
 
 ## Why a Lightweight Frontend?
 
-The prototype uses standard web technologies to keep the application lightweight and accessible through a browser.
-
-This also provides direct access to browser capabilities such as:
+The application uses standard browser technologies to keep the client lightweight while still accessing capabilities such as:
 
 * Geolocation
-* Media recording
-* Maps
-* Device interaction
+* Audio recording
+* Speech APIs
+* Interactive maps
 
 ---
 
-# 🛠️ Tech Stack
+# 🛠️ Technology Stack
 
-### Frontend
+## Frontend
 
 * HTML5
 * CSS3
-* JavaScript
-* Leaflet
-* Browser Geolocation API
-* Browser Media APIs
+* Vanilla JavaScript
+* Leaflet.js
+* Web Geolocation API
+* MediaRecorder API
+* Web Speech API
 
-### Backend
+## Backend
 
 * Node.js
 * Express.js
+* Multer
 
-### AI
+## AI
 
-* Google Gemini API
+* Google Gemini
+* `@google/genai`
 
-### Mapping
+## Maps
 
-* Leaflet
+* Leaflet.js
 * OpenStreetMap-based map data
 
-### Deployment
+## Deployment
 
 * Render
 
-### Testing
+## Testing
 
-* Node.js test scripts
+* Node.js
+* Custom API test suite
+
+The current repository uses Node.js/Express, Leaflet, browser APIs, Multer, and Google's Gen AI SDK.
 
 ---
 
@@ -381,22 +514,26 @@ hope-seeker-ai/
 │
 ├── public/
 │   ├── index.html
-│   ├── app.js
-│   └── styles.css
+│   ├── style.css
+│   └── app.js
 │
-├── data/
-│   └── application data
+├── images/
+│   ├── demo.png
+│   ├── sos_flow.png
+│   └── offline_mode.png
 │
-├── server.js
-├── test-api.js
-├── package.json
-├── package-lock.json
+├── uploads/
+│
 ├── .env.example
-│
-├── SECURITY.md
+├── .gitignore
 ├── CONTRIBUTING.md
 ├── CODE_OF_CONDUCT.md
 ├── LICENSE
+├── SECURITY.md
+├── package.json
+├── package-lock.json
+├── server.js
+├── test-api.js
 └── README.md
 ```
 
@@ -406,27 +543,24 @@ hope-seeker-ai/
 
 ## Prerequisites
 
-Make sure you have:
+Install:
 
-* Node.js
-* npm
-* A Google Gemini API key
+* **Node.js v18+**
+* **npm**
+* Google Gemini API key
 
 ---
 
-## 1. Clone the repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/ujjwalraj-cds/hope-seeker-ai.git
-```
-
-```bash
 cd hope-seeker-ai
 ```
 
 ---
 
-## 2. Install dependencies
+## 2. Install Dependencies
 
 ```bash
 npm install
@@ -434,23 +568,29 @@ npm install
 
 ---
 
-## 3. Configure environment variables
+## 3. Configure Environment Variables
 
-Create a `.env` file:
+Copy the example environment file:
 
-```env
-GEMINI_API_KEY=your_gemini_api_key
-PORT=3000
+```bash
+cp .env.example .env
 ```
 
-Never commit your actual API key to GitHub.
+Then configure:
+
+```env
+PORT=3000
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+**Never commit your real API key to GitHub.**
 
 ---
 
-## 4. Start the server
+## 4. Run the Application
 
 ```bash
-npm start
+node server.js
 ```
 
 The application should then be available at:
@@ -463,89 +603,81 @@ http://localhost:3000
 
 # 🧪 Testing
 
-The project includes API-level tests for core functionality.
+The project includes a custom API test suite for verifying backend behaviour.
 
 Run:
 
 ```bash
-npm test
+node test-api.js
 ```
 
-The tests cover areas such as:
+The tests cover areas including:
 
-* API availability
-* Request handling
-* Emergency payload processing
-* Incident classification
-* Responder matching
-* Fallback behaviour
-
----
-
-# 🔐 Security
-
-Security is particularly important for an application dealing with emergency information.
-
-Current security considerations include:
-
-* Environment variables for API credentials
-* `.env` excluded from version control
-* Input validation
-* Basic API error handling
-* Security documentation
-
-See:
-
-**[SECURITY.md](SECURITY.md)**
-
-for more information.
+1. API availability
+2. Simulated volunteer retrieval
+3. Hazard and shelter retrieval
+4. Emergency form submission
+5. Incident classification
+6. Priority assignment
+7. Geographic distance calculations
+8. Volunteer matching
+9. English/Hindi alert generation
 
 ---
 
 # ⚠️ Current Limitations
 
-Hope Seeker AI is currently a **functional prototype/MVP**, not a production emergency-response system.
+Hope Seeker AI is currently a **functional prototype/MVP**.
 
-Important limitations include:
+It should **not** be considered a production emergency-response system.
 
-* Responder and shelter information may use local/simulated data.
-* The application is not directly connected to official emergency dispatch infrastructure.
+### Current limitations include:
+
+* Responder and shelter information may be simulated/local data.
+* The application is not directly connected to official emergency dispatch systems.
+* Geographic matching currently uses proximity calculations rather than actual road routing.
 * Persistent production-grade database storage is not yet implemented.
-* Authentication and role-based access are still areas for future development.
-* Browser voice and geolocation features depend on device/browser permissions.
-* AI responses depend on the availability and behaviour of the external AI service.
-* The current deployment should not be relied upon as an official emergency service.
+* Authentication and role-based access are future improvements.
+* AI functionality depends on external service availability.
+* Browser geolocation and audio functionality depend on device/browser permissions.
+* The current connectivity fallback uses SMS/WhatsApp actions rather than providing complete offline operation.
+* The system has not been validated against real-world emergency-response datasets.
 
-For an actual emergency, users should contact the appropriate official emergency services.
+For a real emergency, contact official emergency services.
 
 ---
 
 # 🗺️ Roadmap
 
-## Phase 1 — Prototype
+## Phase 1 — Functional Prototype ✅
 
 * [x] Emergency reporting
 * [x] GPS location capture
+* [x] Voice recording
 * [x] AI-assisted classification
 * [x] Fallback classification
-* [x] Responder proximity matching
+* [x] Geographic proximity matching
+* [x] Volunteer registration
 * [x] Disaster/hazard mapping
-* [x] Voice-based reporting
+* [x] Shelter information
 * [x] Bilingual guidance
-* [x] Web deployment
+* [x] Safety check-in
+* [x] Connectivity fallback
+* [x] Live web deployment
 
 ---
 
 ## Phase 2 — Reliability
 
 * [ ] Persistent database
-* [ ] User authentication
+* [ ] Authentication
 * [ ] Role-based access control
-* [ ] Improved API validation
+* [ ] Improved input validation
 * [ ] Rate limiting
 * [ ] Structured logging
 * [ ] Better automated testing
 * [ ] Monitoring and observability
+* [ ] Error tracking
 
 ---
 
@@ -556,162 +688,217 @@ For an actual emergency, users should contact the appropriate official emergency
 * [ ] Offline-first incident queue
 * [ ] Background synchronization
 * [ ] Local data persistence
-* [ ] Experiment with offline/local AI models
+* [ ] Local/offline AI experimentation
+* [ ] Better degraded-network behaviour
 
 ---
 
-## Phase 4 — Real-World Integration
+## Phase 4 — Advanced Response Coordination
+
+* [ ] Real-time responder dashboards
+* [ ] Incident lifecycle management
+* [ ] Responder availability tracking
+* [ ] Coordinator/admin dashboard
+* [ ] Advanced geospatial routing
+* [ ] Travel-time based responder selection
+* [ ] Push notifications
+* [ ] SMS-based fallback infrastructure
+
+---
+
+## Phase 5 — Real-World Integration
 
 * [ ] Verified emergency-service datasets
 * [ ] Official API integrations where available
-* [ ] Real responder accounts
-* [ ] Coordinator/admin dashboard
-* [ ] Push notification infrastructure
-* [ ] SMS fallback
-* [ ] Advanced geospatial routing
+* [ ] Verified responder accounts
+* [ ] Government/NGO collaboration
+* [ ] Real-world pilot testing
+* [ ] Security and privacy audit
+* [ ] Disaster-response dataset evaluation
 
 ---
 
 # 🔬 Future Research
 
-Several areas require further research before the system could be considered for real-world disaster-response usage.
+Before this system could be considered for real-world disaster-response usage, several areas require significant research and validation.
 
-### AI Reliability
+## AI Reliability
 
-Emergency classification needs to be evaluated against real-world disaster scenarios and noisy, incomplete user reports.
+Emergency classification must be evaluated against:
 
-### False Positives & False Negatives
+* Noisy speech
+* Incomplete information
+* Multiple languages
+* Regional terminology
+* Poor audio quality
+* Ambiguous descriptions
 
-Incorrect classification could have serious consequences, so the system would require carefully designed evaluation datasets and human oversight.
+---
 
-### Geospatial Routing
+## False Positives & False Negatives
 
-Simple geographic distance is not equivalent to actual travel time.
+Incorrect classification can have serious consequences.
 
-Future versions could consider:
+Future versions should therefore evaluate:
 
-* Roads
-* Flooded areas
-* Blocked routes
+* Classification accuracy
+* Precision
+* Recall
+* Confusion matrices
+* Failure cases
+* Human verification workflows
+
+---
+
+## Advanced Geospatial Routing
+
+Straight-line geographic distance does not represent actual travel time.
+
+A future implementation could consider:
+
+* Road networks
 * Traffic
+* Flooded roads
+* Blocked roads
 * Terrain
 * Vehicle accessibility
+* Travel time
 
-### Connectivity
+---
 
-Disasters can damage communication infrastructure.
+## Connectivity
 
-Future versions will investigate:
+Disasters can disrupt communication infrastructure.
+
+Future research will investigate:
 
 * Offline-first architecture
 * Store-and-forward communication
 * Local caching
 * Background synchronization
-* Alternative communication channels
+* SMS fallback
+* Peer-to-peer communication
+* Local AI inference
 
-### Privacy
+---
 
-Location and emergency information can be sensitive.
+## Privacy & Security
 
-A production implementation would require stronger privacy controls, data minimization, access controls, retention policies, and secure storage.
+Emergency systems may process sensitive information such as:
+
+* Location
+* Phone numbers
+* Incident descriptions
+* Voice recordings
+* Safety status
+
+A production implementation would require:
+
+* Strong authentication
+* Authorization
+* Encryption
+* Data minimization
+* Secure storage
+* Retention policies
+* Access auditing
 
 ---
 
 # 📊 Example Incident Flow
 
 ```text
-User reports:
+USER REPORT
 
-"There's a fire in the building and
-two people are still inside."
+"There is a fire in the building
+and two people are still inside."
 
-                ↓
-
-        AI Classification
-
+                │
+                ▼
+        ┌─────────────────┐
+        │   AI ANALYSIS   │
+        └────────┬────────┘
+                 │
+                 ▼
         Type: Fire
         Priority: Critical
         Requirement: Rescue
 
-                ↓
-
+                 │
+                 ▼
         GPS Coordinates
 
-                ↓
+                 │
+                 ▼
+       Nearby Response Search
 
-     Nearby Responder Search
+                 │
+                 ▼
+        Suitable Responders
 
-                ↓
+                 │
+                 ▼
+      Response Coordination
 
-       Candidate Responders
-
-                ↓
-
-       Response Coordination
-
-                ↓
-
-      Emergency Safety Guidance
+                 │
+                 ▼
+       Emergency Guidance
 ```
 
 ---
 
-# 🎯 Project Goals
+# 🎯 Design Principles
 
-Hope Seeker AI is being developed around five core principles:
+Hope Seeker AI is being developed around five principles.
 
-### 1. Speed
+### ⚡ Speed
 
 Reduce the time required to communicate an emergency.
 
-### 2. Simplicity
+### 🧩 Simplicity
 
-Make reporting possible even when the user is under stress.
+Make emergency reporting possible with minimal interaction.
 
-### 3. Intelligence
+### 🤖 Intelligence
 
-Use AI to transform unstructured descriptions into useful information.
+Use AI to transform unstructured reports into useful information.
 
-### 4. Location Awareness
+### 📍 Location Awareness
 
 Use geographic context to improve response coordination.
 
-### 5. Resilience
+### 📡 Resilience
 
-Design the system so that individual components can fail without completely stopping the workflow.
+Design the system to degrade gracefully when individual components fail.
 
 ---
 
-# 📈 What I Am Building Toward
+# 📈 Project Evolution
 
-The current deployment is the **first working version**, not the final product.
+The current deployment represents the **first working version** of Hope Seeker AI.
 
-The long-term goal is to evolve Hope Seeker AI from a demonstration into a more robust disaster-coordination platform with:
+The long-term goal is to evolve the project from a prototype into a more robust disaster-coordination platform.
 
 ```text
-                    ┌───────────────────────┐
-                    │    Citizen Reports    │
-                    └───────────┬───────────┘
-                                │
-                                ▼
-                    ┌───────────────────────┐
-                    │ AI Incident Analysis  │
-                    └───────────┬───────────┘
-                                │
-                                ▼
-                    ┌───────────────────────┐
-                    │ Response Coordination │
-                    └───────────┬───────────┘
-                                │
-              ┌─────────────────┼─────────────────┐
-              ▼                 ▼                 ▼
-        Volunteers         Coordinators      Authorities
-              │                 │                 │
-              └─────────────────┼─────────────────┘
-                                ▼
-                    ┌───────────────────────┐
-                    │    Faster Response   │
-                    └───────────────────────┘
+                CITIZEN
+                   │
+                   ▼
+          Emergency Report
+                   │
+                   ▼
+          AI Incident Analysis
+                   │
+                   ▼
+        ┌─────────────────────┐
+        │ Response Coordinator│
+        └──────────┬──────────┘
+                   │
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+   Volunteers  Coordinators  Authorities
+        │          │          │
+        └──────────┼──────────┘
+                   ▼
+            Faster Response
 ```
 
 ---
@@ -720,15 +907,25 @@ The long-term goal is to evolve Hope Seeker AI from a demonstration into a more 
 
 Contributions, suggestions, and ideas are welcome.
 
-If you would like to contribute:
+To contribute:
 
 1. Fork the repository.
 2. Create a feature branch.
 3. Make your changes.
-4. Test the changes.
+4. Test your changes.
 5. Open a pull request.
 
-Please read **[CONTRIBUTING.md](CONTRIBUTING.md)** before contributing.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before contributing.
+
+---
+
+# 🔐 Security
+
+If you discover a potential security vulnerability, please follow the process described in:
+
+**[SECURITY.md](SECURITY.md)**
+
+Never publish API keys, credentials, or sensitive emergency information in issues or pull requests.
 
 ---
 
@@ -742,22 +939,28 @@ See [LICENSE](LICENSE) for details.
 
 # 👨‍💻 Author
 
-**Ujjawal Raj**
+## Ujjawal Raj
 
-Computer Science / AI enthusiast building practical software projects around **AI, web development, and real-world problem solving**.
+Computer Science / AI enthusiast focused on building practical software around:
 
-### Project
+* Artificial Intelligence
+* Software Engineering
+* Web Development
+* Geospatial Systems
+* Real-World Problem Solving
 
-**Hope Seeker AI**
+### Hope Seeker AI
 
-🚀 [Live Demo](https://hope-seeker-ai.onrender.com)
+🚀 **Live Demo:**
+https://hope-seeker-ai.onrender.com
 
-💻 [GitHub Repository](https://github.com/ujjwalraj-cds/hope-seeker-ai)
+💻 **GitHub:**
+https://github.com/ujjwalraj-cds/hope-seeker-ai
 
 ---
 
-## ⭐ Support the Project
+# ⭐ Support the Project
 
-If you find Hope Seeker AI interesting, consider giving the repository a ⭐ on GitHub.
+If you find **Hope Seeker AI** interesting, consider giving the repository a ⭐ on GitHub.
 
-The project is actively evolving, and feedback on the architecture, AI pipeline, disaster-response workflow, and future improvements is welcome.
+The project is actively evolving, and feedback on the **AI pipeline, system architecture, disaster-response workflow, geospatial coordination, and future offline capabilities** is welcome.
