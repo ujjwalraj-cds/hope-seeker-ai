@@ -143,7 +143,7 @@ The server will boot up:
 ```
 Hope Seeker AI server running at http://localhost:3000
 ```
-Open your browser and navigate to **[http://localhost:3000](http://localhost:3000)**.
+Open your browser and navigate to **https://hope-seeker-ai.onrender.com**.
 
 ---
 
